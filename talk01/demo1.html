@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 200px;
+            height: 200px;
+            overflow: scroll;
+        }
+
+        #scroll {
+            width: 200px;
+            height: 500px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="scroll"></div>
+    </div>
+    <div id="times">0</div>
+    <script>
+        //自己实现的防抖
+        let num = document.getElementById("times").innerHTML
+
+        function myFun() {
+            document.getElementById("times").innerHTML = ++num
+        }
+
+        function debounce(method, time, context) {
+            clearTimeout(method.tId);
+            method.tId = setTimeout(function () {
+                method.call(context);
+            }, time);
+        }
+
+
+        document.getElementById("container").onscroll = function () {
+            debounce(myFun, 500);
+        };
+    </script>
+</body>
+
+</html>
