@@ -35,15 +35,15 @@
             var timeout, args, context, timestamp, result;
 
             var later = function() {
+                console.log('_.now', _.now());
                 var last = _.now() - timestamp;
-                if (last < wait && last >= 0) {
-                    timeout = setTimeout(later, wait - last);
+                if (last < wait && last > 0) {
+                    timeout = setTimeout(later, wait - last); //等待剩余时间触发
                 } else {
                     timeout = null;
                     if (!immediate) {
-                        result = func.apply(context, args);
-                        if (!timeout)
-                            context = args = null;
+                        result = func.apply(context, args); //超过等待时间立即触发
+                        if (!timeout) context = args = null;
                     }
                 }
             };
@@ -52,15 +52,14 @@
                 context = this;
                 args = arguments;
                 timestamp = _.now();
-
                 var callNow = immediate && !timeout;
-
-                if (!timeout)
+                console.log('timeout', timeout, timestamp);
+                if (!timeout) {
                     timeout = setTimeout(later, wait);
-
+                }
                 if (callNow) {
+                    console.log('callNow', callNow); //没有传immediate参数这里不会被执行
                     result = func.apply(context, args);
-                    // 解除引用
                     context = args = null;
                 }
 
@@ -75,7 +74,7 @@
             console.log('hello world');
         }
 
-        document.querySelector('#container').onscroll = _.debounce(print, 1000);
+        document.querySelector('#container').onscroll = _.debounce(print, 3000);
     </script>
 </body>
 
