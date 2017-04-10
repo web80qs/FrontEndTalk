@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6展开运算符 解构赋值</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="container">
+
+    </div>
+    <script type="text/javascript">
+        //ES6展开运算符 解构赋值
+
+        //
+        if(1){
+            function myFunction1(x, y, z) {
+                console.log(x, y, z);
+            }
+            var args = [0, 1, 2];
+            myFunction1(...args);
+        }
+
+        //函数传参
+        if(1){
+            function filter(type, ...args) {
+                console.log(type);
+                console.log(args);
+            }
+            //filter('boolean', true, 0, false);        //
+            filter('number', false, 4, 'Welcome', 7); //
+        }
+
+    </script>
+</body>
+
+</html>
