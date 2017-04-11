@@ -27,7 +27,12 @@
     </div>
     <div id="times">0</div>
     <script type="text/javascript">
-        import isObject from './isObject.js'
+        function isObject(value) {
+            // Avoid a V8 JIT bug in Chrome 19-20.
+            // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
+            var type = typeof value;
+            return !!value && (type == 'object' || type == 'function');
+        }
 
         /**
          * Creates a debounced function that delays invoking `func` until after `wait`
@@ -204,7 +209,30 @@
             return debounced
         }
 
-        export default debounce
+        // export default debounce
+
+        var num = document.querySelector('#times').innerHTML;
+
+        function print() {
+            document.querySelector('#times').innerHTML = ++num;
+            console.log('hello world');
+        }
+
+        if(0) {
+            document.querySelector('#container').onscroll = debounce(print, 1000);
+        }
+
+        if(1) {
+            document.querySelector('#container').onscroll = debounce(print, 1000, {
+                'maxWait': 2000
+            });
+        }
+        if(0) {
+            document.querySelector('#container').onscroll = debounce(print, 1000, {
+                'leading': true,
+                'trailing': false
+            });
+        }
     </script>
 </body>
 
