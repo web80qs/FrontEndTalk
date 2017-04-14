@@ -362,6 +362,7 @@ https://github.com/RubyLouvre/avalon/tree/2.2.4
         if (array.length === 1) {
             array.unshift(this);
         }
+        console.log('mix_array', array);
         return innerExtend(isDeep, array);
     };
 
@@ -410,6 +411,13 @@ https://github.com/RubyLouvre/avalon/tree/2.2.4
         return target;
     }
 
+    //二级以上的元素get set会被监听
+    //第一个参数设置是否深拷贝
+    console.log( innerExtend(true, [{a: 123, b: 666, c: {c1: 555}}, {a: 222, c: {c2: 333}, g: 333, d: 999}]) );
+    console.log( innerExtend(false, [{a: 123, b: {b1: 666, b2: {b12: 888}}, c: {c1: 555}}, {a: 222, c: {c2: 333}, g: 333, d: 999}]) );
+    var obj01 = {}
+    avalon.mix(obj01, $$skipArray);
+    console.log(obj01);
 
     /**
      $$skipArray:是系统级通用的不可监听属性
