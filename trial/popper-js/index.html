@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link href="" rel="stylesheet">
+	<script type="text/javascript" src="http://libs.wqdian.net/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="https://cdn.staticfile.org/popper.js/1.0.8/popper.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://popper.js.org/css/popper.css">
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		body{position:relative;width:100%;height:2000px;}
+		.box{/* width:50px;height:50px;background-color: #dcdcdc;position:absolute; */ margin-left: 250px; padding-top: 150px;}
+		.my-button{background: #FFC107;}
+		.my-popper{position: absolute; left: 0px; right: 0px; background: #CCC; width: 80px; text-align: center;}
+	</style>
+</head>
+
+<body>
+	<div class="box1 box">
+		<select id="example10positionSelector">
+			<option value="top">Top</option>
+			<option value="right">Right</option>
+			<option value="bottom">Bottom</option>
+			<option value="left">Left</option>
+		</select>
+	</div>
+	<div class="box2 box">
+		<span class="rel my-button" id="my-button">按钮</span>
+		<div class="popper my-popper" id="my-popper">
+			<p class="bold">Popper on <b id="example10currentPosition" class="currentPosition"></b></p>
+			<div class="popper__arrow" x-arrow=""></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function(){
+			var popperJS;
+
+			$('#example10positionSelector').on('change', attachPopper).trigger('change');
+			function attachPopper(evt) {
+				position = evt.target.value;
+
+				popperJS && popperJS.destroy();
+				var referenceElement = document.querySelector('#my-button');
+				var onPopper = document.querySelector('#my-popper');
+				popperJS = new Popper(referenceElement, onPopper, {
+					placement: position
+				});
+				console.log(popperJS);
+			}
+
+			/*var reference = document.querySelector('.my-button');
+			var popper = document.querySelector('.my-popper');
+
+			var popperJS = new Popper(reference, popper, {
+				onCreate: (data) => {
+					popperJS ? popperJS.update() : createPopper();
+					// data is an object containing all the informations computed
+					// by Popper.js and used to style the popper and its arrow
+					// The complete description is available in Popper.js documentation
+				},
+				onUpdate: (data) => {
+					// same as `onCreate` but called on subsequent updates
+				}
+			});*/
+		});
+	</script>
+</body>
+
+</html>

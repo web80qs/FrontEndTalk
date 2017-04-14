@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link href="" rel="stylesheet">
+	<script type="text/javascript" src="http://libs.wqdian.net/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="https://cdn.staticfile.org/popper.js/1.0.8/popper.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://popper.js.org/css/popper.css">
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		body{position:relative;width:100%;height:2000px; font-family: "Open Sans", Helvetica, sans-serif;}
+		.box{/* width:50px;height:50px;background-color: #dcdcdc;position:absolute; */ margin-left: 250px; padding-top: 150px;}
+		.my-button{background: #EFCC00;}
+		.my-popper{position: absolute; left: 0px; right: 0px; background: #CCC; width: 80px; text-align: center; display: none;}
+	</style>
+</head>
+
+<body>
+	<div class="example" style="width:500px; height: 300px; margin: 0px auto; padding-top: 120px; color: #FFF;">
+		<!-- <div class="rel" id="example10reference1" style="background: #E05200;">
+			<div style="height: 100px; width: 100px; background: #FE0520;"></div>
+		</div> -->
+		<div class="rel" id="example10reference1" style="background: #E05200;">
+			<p class="bold">Hey!</p>
+			<p class="thin">Choose where to put your popper!</p>
+			<select id="example10positionSelector">
+				<option value="top">Top</option>
+				<option value="right">Right</option>
+				<option value="bottom">Bottom</option>
+				<option value="left">Left</option>
+			</select>
+		</div>
+		<div class="popper" width="200" id="example10popper1">
+			<p class="bold">Popper on <b id="example10currentPosition" class="currentPosition"></b></p>
+			<div class="popper__arrow" x-arrow=""></div>
+		</div>
+
+		<style>
+			#example10positionSelector {
+				margin-top: 1em;
+			}
+		</style>
+
+		<script>
+
+		document.addEventListener('DOMContentLoaded', function(){
+			var index = 0;
+			var popper;
+			// var code = $('#example10code').html();
+
+			$('#example10positionSelector').on('change', attachPopper).trigger('change');
+
+			// Stop autoflip popper when the user click on the dropdown
+			$('#example10positionSelector').on('click', function() {
+				clearInterval(autoPopperFunctionTimer);
+			});
+
+			var autoPopperFunctionTimer = setInterval(function() {
+				if (index === 0) {
+					$('#example10positionSelector').val('top');
+					$('#example10positionSelector').trigger('change');
+					index++;
+				} else if (index === 1) {
+					$('#example10positionSelector').val('right');
+					$('#example10positionSelector').trigger('change');
+					index++;
+				} else if (index === 2) {
+					$('#example10positionSelector').val('bottom');
+					$('#example10positionSelector').trigger('change');
+					index++;
+				} else {
+					$('#example10positionSelector').val('left');
+					$('#example10positionSelector').trigger('change');
+					index = 0;
+				}
+			}, 4000);
+
+			function attachPopper(evt) {
+				position = evt.target.value;
+
+				//Position of the popper
+				// $('#example10code').html(code.replace('position', position));
+				// $('.currentPosition').text(position);
+				var referenceElement1 = document.querySelector('#example10reference1');
+				var onPopper1 = document.querySelector('#example10popper1');
+
+				popper && popper.destroy();
+				popper = new Popper(referenceElement1, onPopper1, {
+					placement: position,
+					// boundariesElement: referenceElement1.parentNode
+				});
+
+			}
+		});
+
+		</script>
+
+	</div>
+</body>
+
+</html>
