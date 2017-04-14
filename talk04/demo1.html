@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Avalon2</title>
+    <script type="text/javascript" src="./support/avalon2.2.4_make.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div ms-controller="test">
+            <input ms-duplex="@name" />
+            <p>Hello,{{@name}}!</p>
+            <ul>
+                <li ms-for="($index,el) in @array">{{$index}}--{{el}}</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var vm = avalon.define({
+            $id: "test",
+            name: "司徒正美",
+            array: [11,22,33]
+        });
+        /*setTimeout(function(){
+            vm.array.set(0, 444)
+        }, 3000);*/
+    </script>
+</body>
+
+</html>
