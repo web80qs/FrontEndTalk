@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Avalon2</title>
+    <!--<script type="text/javascript" src="support/avalon2.2.4.js"></script>-->
+    <script type="text/javascript" src="vendor.bundle.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div ms-controller="test">
+            <!--<input ms-duplex="@name" />-->
+            <p>Hello,{{@name}}!</p>
+            <ul>
+                <li ms-for="($index,el) in @array">{{$index}}--{{el}}</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var vm = avalon.define({
+            $id: "test",
+            name: "司徒正美",
+            array10: [11,22,33],
+            a: 1,
+            $b: 2,            
+            c: 3,
+            d: {  //这是子VM
+                dd: {
+                    ddd: 3
+                },
+                dd2: 4
+            },
+            arr20: [1, 2, 3, 4], //监控数组
+            $skipArray: ['a', 'aa', 'aaa'],
+            $computed: {
+                c: {//计算属性c
+                    get: function () {
+                        return this.a + ' ' + this.c;
+                    },
+                    set: function (val) {
+                        var arr = val.split(' ');
+                        this.a = arr[0];
+                        this.b = arr[1];
+                    }
+                },
+                e: {//计算属性e
+                    get: function () {
+                        return this.a + 100;
+                    }
+                }
+            }
+        });
+        console.log('index_vm', vm);
+        /*setTimeout(function(){
+            vm.array.set(0, 444)
+        }, 3000);*/
+    </script>
+</body>
+
+</html>
