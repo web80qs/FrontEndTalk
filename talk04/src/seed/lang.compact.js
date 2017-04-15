@@ -3,7 +3,7 @@ import './lang.fix'
 import { avalon, ohasOwn, inspect, window } from './core'
 export { avalon }
 
-export var compaceQuote = (function() {
+export var compaceQuote = (function() { //??? 方法好像有BUG函数不起作用
     //https://github.com/bestiejs/json3/blob/master/lib/json3.js
     var Escapes = {
         92: "\\\\",
@@ -36,6 +36,7 @@ export var compaceQuote = (function() {
         return '"' + (reEscape.test(value) ? String(value).replace(reEscape, escapeChar) : value) + '"'
     }
 })()
+
 try {
     avalon._quote = JSON.stringify
 } catch (e) {
@@ -97,6 +98,7 @@ avalon.isWindow = isWindowModern(avalon.window) ?
 
 var enu, enumerateBUG
 for (enu in avalon({})) {
+    // console.log(enu)
     break
 }
 

@@ -212,7 +212,8 @@ var modelAccessor = {
     },
     set: avalon.noop,
     enumerable: false,
-    configurable: true
+    configurable: true,
+    // test: 8888
 }
 
 platform.toJson = toJson

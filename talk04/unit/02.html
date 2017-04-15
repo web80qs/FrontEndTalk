@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Avalon2 createDocumentFragment</title>
+    <!--<script type="text/javascript" src="../vendor.bundle.js"></script>
+    <script type="text/javascript" src="../main.js"></script>-->
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <ul>
+            <li>Coffee</li>
+            <li>Tea</li>
+        </ul>
+        <p id="demo">单击按钮更改列表项,使用createDocumentFragment方法,然后在列表的最后一个孩子添加列表项。</p>
+        <button onclick="myFunction()">点我</button>
+    </div>
+    <script type="text/javascript">
+        function myFunction(){
+            var node=document.createElement("LI");
+            var textnode=document.createTextNode("Water");
+            node.appendChild(textnode);
+            var d=document.createDocumentFragment();
+            d.appendChild(document.getElementsByTagName("LI")[0]);
+            d.appendChild(node);
+            console.log(document.getElementsByTagName("LI")[0]);
+            // d.childNodes[0].childNodes[0].nodeValue="Milk";
+            document.getElementsByTagName("UL")[0].appendChild(d);
+        };
+    </script>
+</body>
+
+</html>

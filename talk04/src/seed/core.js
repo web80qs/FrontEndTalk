@@ -5,7 +5,7 @@ import { directive, directives, delayCompileNodes } from './directive'
 let begin = '==========================######==========================='
 
 export var window = win
-export function avalon(el) {
+export function avalon(el) { //首次调用在lang.compact.js 的 for (enu in avalon({}))
     return new avalon.init(el)
 }
 
@@ -14,6 +14,8 @@ avalon.init = function (el) {
 }
 
 avalon.fn = avalon.prototype = avalon.init.prototype
+
+// console.log( avalon({}) )
 
 export function shadowCopy(destination, source) {
     for (var property in source) {
@@ -29,6 +31,8 @@ export var isArray = function (target) {
     return avalon.type(target) === 'array'
 }
 
+//oneObject('div,ul,ol,dl,table,h1,h2,h3,h4,h5,h6,form,fieldset')
+//return Object {div: 1, ul: 1, ol: 1, dl: 1, table: 1…}
 export function oneObject(array, val) {
     if (typeof array === 'string') {
         array = array.match(rword) || []
@@ -203,7 +207,9 @@ config({
     debug: true
 })
 
-// console.dir(config)
+/*console.warn('config >>')
+console.dir(config)
+console.warn('<< config')*/
 //============  end config ============
 
 shadowCopy(avalon, {
@@ -231,5 +237,7 @@ shadowCopy(avalon, {
     makeHashCode: makeHashCode
 });
 
-console.dir(avalon);
+console.warn('avalon >>')
+console.dir(avalon)
+console.warn('<< avalon')
 window.avalon = avalon

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Avalon2</title>
+    <script type="text/javascript" src="../vendor.bundle.js"></script>
+    <script type="text/javascript" src="../main.js"></script>
     <style>
     </style>
 </head>
@@ -15,8 +17,12 @@
 
     </div>
     <script type="text/javascript">
+        console.log(avalon.oneObject('div,ul,ol,dl,table,h1,h2,h3,h4,h5,h6,form,fieldset'));
 
-
+        //JSON.stringify == avalon.quote
+        var str1 = {"name":"菜鸟教程", "site":"http://www.runoob.com"}
+        console.log('compaceQuote', avalon.quote)
+        console.log('compaceQuote_call', avalon.quote(str1))
     </script>
 </body>
 
