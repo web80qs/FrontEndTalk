@@ -15,4 +15,5 @@ npm-debug.log
 *.swp
 *.swo
 *.log
+dist/
 examples/dist/
