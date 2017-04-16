@@ -1,4 +1,7 @@
 var rollup = require('rollup');
+// watch(rollup,options) options = { entry: 'src/avalon.js', dest: 'dist/avalon.js', …}
+// var watch = require('rollup-watch');
+
 var fs = require('fs');
 var babel = require("babel-core");
 var transform = require('es3ify').transform;
@@ -72,7 +75,7 @@ module.exports = rollup.rollup({
 
     var code = banner + transform(result.code).
     replace(/\}\)\(undefined,/, '})(this,').
-    replace(/avalon\$\d/g, 'avalon')
+    replace(/avalon\$\d/g, 'avalon') //替换avalon$1,avalon$2,avalon$…
 
     //这个不需要了
     //  replace(/'use strict';?/g, '')
