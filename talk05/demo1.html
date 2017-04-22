@@ -11,9 +11,14 @@
 <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
 <script>
     var button = document.querySelector('button');
-    button.addEventListener('click',function (event) {
-        console.log(event);
-    })
+//    button.addEventListener('click',function (event) {
+//        console.log(event);
+//    })
+    //使用RxJS方式
+    Rx.Observable.fromEvent(button,'click')
+        .subscribe(function (event) {
+            console.log(event)
+        });
 </script>
 </body>
 </html>
