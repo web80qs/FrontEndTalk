@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content">
+    <button class="click">click me!</button>
+</div>
+<script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+<script>
+    var button = document.querySelector('button');
+    button.addEventListener('click',function (event) {
+        console.log(event);
+    })
+</script>
+</body>
+</html>
