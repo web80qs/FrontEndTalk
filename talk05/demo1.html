@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>RxJS</title>
 </head>
 <body>
 <div class="content">
@@ -16,6 +16,10 @@
 //    })
     //使用RxJS方式
     Rx.Observable.fromEvent(button,'click')
+        //采用节流将一个连续事件过滤为按照一定事件必将触发的方式。
+        //1-1-1-1-1-1-1-1-1-1-1-1-1 form
+        //1---1----1----1----1----1  to
+        .throttleTime(1000)
         .subscribe(function (event) {
             console.log(event)
         });
