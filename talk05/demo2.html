@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxJS</title>
+</head>
+<body>
+    <div class="content">
+    </div>
+    <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+    <script>
+    let x = true
+
+    //Create
+    if(!x) {
+        const hello = Rx.Observable.create(function(observer){
+            observer.next('Hello');
+            observer.next('World');
+        })
+
+        const subscribe = hello.subscribe(val => console.log(val))
+    }
+
+    if(!x) {
+        const evenNumbers = Rx.Observable.create(function(observer){
+            let value = 0
+            const interval = setInterval(()=>{
+                if(value % 2 === 0){
+                    observer.next(value)
+                }
+                value++
+            }, 1000)
+
+            return ()=>{
+                console.log('clearInterval')
+                clearInterval(interval) //用于unsubscribe时候执行的回调
+            }
+        })
+        const subscribe = evenNumbers.subscribe(val => console.log(val))
+
+        setTimeout(()=>{
+            subscribe.unsubscribe()
+        }, 10000)
+
+    }
+
+    //Empty
+    if(!x) {
+        const example = Rx.Observable.empty()
+
+        /*const subscribe = example.subscribe(
+            val => console.log(val),
+            err => console.log(val),
+            complete => console.log(val)
+        )*/
+        const subscribe = example.subscribe({
+            next: (val) => console.log(val),
+            error: (err) => console.log(err),
+            complete: () => console.log('complete')
+        })
+    }
+
+    //From
+    if(!x) {
+        const arraySource = Rx.Observable.from([1, 2, 3, 5, 6])
+
+        /*const subscribe = example.subscribe(
+            val => console.log(val),
+            err => console.log(val),
+            complete => console.log(val)
+        )*/
+        arraySource.subscribe({
+            next: (val) => console.log(val),
+            error: (err) => console.log(err),
+            complete: () => console.log('complete')
+        })
+
+        const promiseSource = Rx.Observable.from(
+            new Promise(resolve => resolve('Hello RxJs'))
+        )
+        promiseSource.subscribe(val => console.log(val))
+
+        const map = new Map()
+        map.set(1, 'Hello')
+        map.set(2, 'World')
+
+        const mapSource = Rx.Observable.from(map)
+        mapSource.subscribe(val => console.log(val))
+
+        const stringSource = Rx.Observable.from('Hello World')
+        stringSource.subscribe(val => console.log(val))
+
+    }
+
+
+    //FromEvent
+    if(!x) {
+        const clickSource = Rx.Observable.fromEvent(document, 'click')
+        clickSource.subscribe(val => console.log(val))
+
+        const clickSource2 = Rx.Observable.fromEvent(document, 'click')
+            .map(event => `Event time: ${event.timeStamp}`)
+        clickSource2.subscribe(val => console.log(val))
+    }
+
+    //FromPromise
+    //of
+    if(!x) {
+        const myPromise = (willRejec) => {
+            return new Promise((resolve, reject) => {
+                if(willRejec) {
+                    reject('Rejected!')
+                }
+                resolve('Resolved!')
+            })
+        }
+        const source = Rx.Observable.of(true, false)
+        const example = source.mergeMap(
+            val => Rx.Observable
+                .from(myPromise(val))
+                .catch(error => Rx.Observable.of(`Error: ${error}`))
+        )
+        example.subscribe(val => console.log(val))
+    }
+
+    //Range
+    //Interval
+    if(!x) {
+        const rangeSource = Rx.Observable.range(1, 10)
+        rangeSource.subscribe(val => console.log(val))
+
+        console.log('')
+        const timerSource = Rx.Observable.timer(1000)
+        timerSource.subscribe(val => console.log(val))
+
+        console.log('')
+        const ofSource = Rx.Observable.of(1, 2, 3, 5, 6)
+        ofSource.subscribe(val => console.log(val))
+
+        console.log('')
+        const ofsSource = Rx.Observable.of(
+            [1, 2, 3, 5, 6],
+            {a: 10, b: 20},
+            () => { console.log(8888) }
+        )
+        ofsSource.subscribe(val => console.log(val))
+
+        console.log('')
+        const intervalSource2 = Rx.Observable.interval(1000, 5000)
+        intervalSource2.subscribe(val => console.log(val))
+
+        console.log('')
+        const intervalSource = Rx.Observable.interval(1000)
+        intervalSource.subscribe(val => console.log(val))
+    }
+
+    //Throw
+    if(x) {
+        const source = Rx.Observable.throw('This is an error')
+        const subscribe = source.subscribe({
+            next: (val) => console.log(val),
+            error: (err) => console.log(err),
+            complete: () => console.log('complete')
+        })
+    }
+    </script>
+</body>
+</html>
