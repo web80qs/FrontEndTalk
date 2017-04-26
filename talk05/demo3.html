@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RxJS</title>
+    <style>
+        canvas {
+            border: 1px solid #233;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <canvas></canvas>
+    </div>
+    <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+        ctx.beginPath()
+
+        const move$ = Rx.Observable.fromEvent(canvas, 'mousemove')
+            .map(e => ({
+                x: e.offsetX,
+                y: e.offsetY
+            }))
+
+        const diff$ = move$.zip(move$.skip(1), (first, sec) => ([first, sec]))
+        let draw = ([first, sec]) => {
+            console.log(first)
+            ctx.moveTo(first.x, first.y)
+            ctx.lineTo(sec.x, sec.y)
+            ctx.stroke()
+        }
+        diff$.subscribe(draw)
+    </script>
+</body>
+
+</html>
